@@ -23,7 +23,7 @@
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                <form action="{{ route('product.store') }}" method="post">
+                <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <div class="form-group">
@@ -43,11 +43,6 @@
                     </div>
                     <div class="form-group">
                         <label>
-                            <input type="text" value="{{ old('preview_image') }}" name="preview_image" class="form-control" placeholder="Изображение">
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label>
                             <input type="text" value="{{ old('price') }}" name="price" class="form-control" placeholder="Цена">
                         </label>
                     </div>
@@ -56,23 +51,44 @@
                             <input type="text" value="{{ old('count') }}" name="count" class="form-control" placeholder="Количество">
                         </label>
                     </div>
+
                     <div class="form-group">
-                        <label>
-                            <input type="text" value="{{ old('is_published') }}" name="is_published" class="form-control" placeholder="Опубликовано">
-                        </label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input name="preview_image" type="file" class="custom-file-input" id="exampleInputFile">
+                                <label class="custom-file-label" for="exampleInputFile">Выберите файл</label>
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text">Загрузка</span>
+                            </div>
+                        </div>
                     </div>
-{{--                    <div class="form-group">--}}
-{{--                        <label>--}}
-{{--                            <input type="text" name="address" class="form-control" placeholder="Адрес">--}}
-{{--                        </label>--}}
-{{--                    </div>--}}
-{{--                    <div class="form-group">--}}
-{{--                        <select name="gender" class="custom-select form-control" id="exampleSelectBorder">--}}
-{{--                            <option disabled selected>Пол</option>--}}
-{{--                            <option {{ old('gender') == 1 ? ' selected' : '' }} value="1">Мужской</option>--}}
-{{--                            <option {{ old('gender') == 2 ? ' selected' : '' }} value="2">Женский</option>--}}
-{{--                        </select>--}}
-{{--                    </div>--}}
+
+                    <div class="form-group">
+                        <select name="category_id" class="form-control select2" style="width: 100%;">
+                            <option selected="selected" disabled>Выберите категорию</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <select name="tags[]" class="tags" multiple="multiple" data-placeholder="Выберите тег" style="width: 100%;">
+                            @foreach($tags as $tag)
+                                <option value="{{ $tag->id }}">{{ $tag->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <select name="colors[]" class="colors" multiple="multiple" data-placeholder="Выберите цвет" style="width: 100%;">
+                            @foreach($colors as $color)
+                                <option value="{{ $color->id }}">{{ $color->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="form-group">
                         <input type="submit" class="btn btn-primary" value="Добавить">
                     </div>

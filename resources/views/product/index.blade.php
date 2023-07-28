@@ -35,19 +35,19 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Наименование</th>
-{{--                                    <th>Возраст</th>--}}
-{{--                                    <th>Адрес</th>--}}
-{{--                                    <th>Пол</th>--}}
+                                    <th>Цена</th>
+                                    <th>Количество</th>
+                                    <th>Опубликовано</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($products as $product)
                                 <tr>
                                     <td>{{ $product->id }}</td>
-                                    <td><a href="{{ route('user.show', $product->id) }}">{{ $product->title}}</a></td>
-{{--                                    <td>{{ $user->age }}</td>--}}
-{{--                                    <td>{{ $user->address }}</td>--}}
-{{--                                    <td>{{ $user->genderTitle }}</td>--}}
+                                    <td><a href="{{ route('product.show', $product->id) }}">{{ $product->title }}</a></td>
+                                    <td>{{ $product->price }}</td>
+                                    <td>{{ $product->count }}</td>
+                                    <td><input type="checkbox" disabled="disabled" {{ $product->is_published ? ' checked' : '' }} ></td>
                                 </tr>
                                 @endforeach
                                 </tbody>

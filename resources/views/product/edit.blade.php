@@ -23,7 +23,7 @@
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                <form action="{{ route('product.update', $product->id) }}" method="post">
+                <form action="{{ route('product.update', $product->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('patch')
                     <div class="form-group">
@@ -31,33 +31,63 @@
                             <input type="text" name="title" value="{{ $product->title }}" class="form-control" placeholder="Название">
                         </label>
                     </div>
-{{--                    <div class="form-group">--}}
-{{--                        <label>--}}
-{{--                            <input type="text" name="name" value="{{ $user->name }}" class="form-control" placeholder="Имя">--}}
-{{--                        </label>--}}
-{{--                    </div>--}}
-{{--                    <div class="form-group">--}}
-{{--                        <label>--}}
-{{--                            <input type="text" name="patronymic" value="{{ $user->patronymic }}" class="form-control" placeholder="Отчество">--}}
-{{--                        </label>--}}
-{{--                    </div>--}}
-{{--                    <div class="form-group">--}}
-{{--                        <label>--}}
-{{--                            <input type="text" name="age" value="{{ $user->age }}" class="form-control" placeholder="Возраст">--}}
-{{--                        </label>--}}
-{{--                    </div>--}}
-{{--                    <div class="form-group">--}}
-{{--                        <label>--}}
-{{--                            <input type="text" name="address" value="{{ $user->address }}" class="form-control" placeholder="Адрес">--}}
-{{--                        </label>--}}
-{{--                    </div>--}}
-{{--                    <div class="form-group">--}}
-{{--                        <select name="gender" class="custom-select form-control" id="exampleSelectBorder">--}}
-{{--                            <option disabled selected>Пол</option>--}}
-{{--                            <option {{  $user->gender == 1 ? ' selected' : '' }} value="1">Мужской</option>--}}
-{{--                            <option {{ $user->gender == 2 ? ' selected' : '' }} value="2">Женский</option>--}}
-{{--                        </select>--}}
-{{--                    </div>--}}
+                    <div class="form-group">
+                        <label>
+                            <input type="text" value="{{ $product->description }}" name="description" class="form-control" placeholder="Описание">
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <textarea name="content" class="form-control" cols="30" rows="10" placeholder="Контент">{{ $product->content }}</textarea>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="text" value="{{ $product->price }}" name="price" class="form-control" placeholder="Цена">
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="text" value="{{ $product->count }}" name="count" class="form-control" placeholder="Количество">
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input name="preview_image" type="file" class="custom-file-input" id="exampleInputFile">
+                                <label class="custom-file-label" for="exampleInputFile">Выберите файл</label>
+                            </div>
+                            <div class="input-group-append">
+                                <span class="input-group-text">Загрузка</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <select name="category_id" class="form-control select2" style="width: 100%;">
+                            <option selected="selected" disabled>Выберите категорию</option>
+                            @foreach($categories as $category)
+                                <option {{ $product->category_id == $category->id ? 'selected' : '' }} value="{{ $category->id }}">{{ $category->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <select name="tags[]" class="tags" multiple="multiple" data-placeholder="Выберите тег" style="width: 100%;">
+                            @foreach($tags as $tag)
+                                <option {{ in_array($tag->id, $productTagIds) ? 'selected' : '' }} value="{{ $tag->id }}">{{ $tag->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <select name="colors[]" class="colors" multiple="multiple" data-placeholder="Выберите цвет" style="width: 100%;">
+                            @foreach($colors as $color)
+                                <option {{ in_array($color->id, $productColorIds) ? 'selected' : '' }} value="{{ $color->id }}">{{ $color->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
 
                     <div class="form-group">

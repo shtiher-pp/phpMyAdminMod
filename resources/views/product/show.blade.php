@@ -43,21 +43,42 @@
                                         <td>{{ $product->id }}</td>
                                     </tr>
                                     <tr>
-                                        <td>ФИО</td>
+                                        <td>Наименование</td>
                                         <td>{{ $product->title}}</td>
                                     </tr>
-{{--                                    <tr>--}}
-{{--                                        <td>Возраст</td>--}}
-{{--                                        <td>{{ $user->age }}</td>--}}
-{{--                                    </tr>--}}
-{{--                                    <tr>--}}
-{{--                                        <td>Адрес</td>--}}
-{{--                                        <td>{{ $user->address }}</td>--}}
-{{--                                    </tr>--}}
-{{--                                    <tr>--}}
-{{--                                        <td>Пол</td>--}}
-{{--                                        <td>{{ $user->gender }}</td>--}}
-{{--                                    </tr>--}}
+                                    <tr>
+                                        <td>Описание</td>
+                                        <td>{{ $product->description}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Цена</td>
+                                        <td>{{ $product->price}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Количество</td>
+                                        <td>{{ $product->count}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Опубликовано</td>
+                                        <td><input type="checkbox" disabled="disabled" {{ $product->is_published ? ' checked' : '' }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Теги</td>
+                                        <td>
+                                            @foreach($tags as $tag)
+                                                <span>{{$tag->title}}</span>
+                                            @endforeach
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Цвета</td>
+                                        <td>
+                                            @foreach($colors as $color)
+                                                <div style="width: 16px; height: 16px; background: {{ '#' . $color->title }}; display: inline-block"></div>
+                                            @endforeach
+                                        </td>
+                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>
